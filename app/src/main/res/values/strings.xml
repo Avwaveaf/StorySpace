@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Story Space</string>
+    <string name="story_space_logo_description">Story Space Logo</string>
+    <string name="app_tagline">Discover the Story Behind Every Headline.</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="let_s_get_started">Let\'s get Started!</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="register_first">Register first</string>
+    <string name="idea_1">Browse through an exciting collection of user-generated stories, complete with user names and captivating photos.</string>
+    <string name="idea_2">Browse through an exciting collection of user-generated stories, complete with user names and captivating photos.</string>
+    <string name="idea_3">Share your unique experiences by adding your own stories. Simply upload a photo from your gallery and craft a compelling description.</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="name">Name</string>
+    <string name="register_btn">Register</string>
+</resources>

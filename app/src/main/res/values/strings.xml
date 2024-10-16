@@ -33,6 +33,10 @@
     <string name="let_s_get_started">Let\'s get Started!</string>
     <string name="logout_title">Logout</string>
     <string name="error_fetching_story">Error Fetching Story: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="add_new_story">Add new story</string>
+    <string name="compose_a_story">Compose A Story</string>
 
 
 </resources>

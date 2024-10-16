@@ -30,12 +30,16 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        applyThemFromPreference()
+        showLoading(true)
+
         // Initialize RecyclerView
         setupRecyclerView()
 
         // Observe the stories
         homeViewModel.stories.observe(viewLifecycleOwner) { stories ->
             storyAdapter.submitList(stories)
+            showLoading(false)
         }
 
         // Observe error messages
@@ -43,6 +47,8 @@ class HomeFragment : Fragment() {
             message?.let {
                 Snackbar.make(root, it, Snackbar.LENGTH_LONG).show()
             }
+
+            showLoading(false)
         }
 
         return root
@@ -52,6 +58,21 @@ class HomeFragment : Fragment() {
         storyAdapter = StoryAdapter()
         binding.rvStories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvStories.adapter = storyAdapter
+    }
+
+
+    private fun showLoading(flag: Boolean) {
+        if (flag) {
+            with(binding) {
+                pbLoading.visibility = View.VISIBLE
+                laodingOverlay.visibility = View.VISIBLE
+            }
+        } else {
+            with(binding) {
+                pbLoading.visibility = View.GONE
+                laodingOverlay.visibility = View.GONE
+            }
+        }
     }
 
 

@@ -27,4 +27,8 @@
     <string name="login_failed">Masuk Gagal!</string>
     <string name="register_detail_invalid">Silahkan Masukan detail yang valid!</string>
     <string name="logout_title">Keluar</string>
+    <string name="error_fetching_story">Gagal memproses cerita: %1$s</string>
+    <string name="add_new_story">Tambah Cerita baru</string>
+
+    <string name="compose_a_story">Tulis Cerita Baru</string>
 </resources>

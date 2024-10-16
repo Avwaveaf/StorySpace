@@ -10,10 +10,23 @@
         android:name="com.avwaveaf.storyspace.view.home.ui.home.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.avwaveaf.storyspace.view.home.ui.settings.SettingsFragment"
         android:label="@string/preferences"
         tools:layout="@xml/preferences" />
+
+    <fragment
+        android:id="@+id/composeStoryFragment"
+        android:name="com.avwaveaf.storyspace.view.home.ui.compose.ComposeStoryFragment"
+        android:label="@string/compose_a_story"
+        tools:layout="@layout/fragment_compose_story" />
+
+    <action
+        android:id="@+id/action_global_composeStoryFragment"
+        app:destination="@id/composeStoryFragment"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
 
 </navigation>

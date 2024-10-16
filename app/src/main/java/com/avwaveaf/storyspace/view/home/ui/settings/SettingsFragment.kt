@@ -1,42 +1,66 @@
 package com.avwaveaf.storyspace.view.home.ui.settings
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.avwaveaf.storyspace.databinding.FragmentSettingsBinding
+import android.provider.Settings
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import com.avwaveaf.storyspace.R
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : PreferenceFragmentCompat(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private var _binding: FragmentSettingsBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.preferences, rootKey)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val settingsViewModel =
-            ViewModelProvider(this).get(SettingsViewModel::class.java)
+        // Set the initial theme based on saved preference
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        updateTheme(sharedPreferences.getBoolean(THEME_KEY, false))
 
-        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textNotifications
-        settingsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        // Set click listener for language preference
+        val languagePreference: Preference? = findPreference(LANGUAGES_KEY)
+        languagePreference?.setOnPreferenceClickListener {
+            // Open Android's language settings
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+            true
         }
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+
+    override fun onResume() {
+        super.onResume()
+        preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        preferenceScreen.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
+    private fun updateTheme(isDarkMode: Boolean) {
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            THEME_KEY -> {
+                val isDarkMode = sharedPreferences?.getBoolean(THEME_KEY, false)
+                isDarkMode?.let { updateTheme(it) }
+            }
+
+        }
+    }
+
+    companion object {
+        const val THEME_KEY = "theme_preference"
+        const val LANGUAGES_KEY = "language_preference"
     }
 }

@@ -8,7 +8,6 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:paddingTop="16dp"
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -16,10 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/app_name"
-            app:logo="@mipmap/ic_launcher_round"
-            android:layout_margin="0dp"
-            app:titleMarginStart="26dp"
-            app:logoDescription="@string/app_name"
+            app:titleTextAppearance="@style/TextAppearance.StorySpace.SubHeadline"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

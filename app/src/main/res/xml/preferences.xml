@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/display_appearance_title">
+        <SwitchPreferenceCompat
+            android:icon="@drawable/baseline_dark_mode_24"
+            android:key="theme_preference"
+            android:summary="@string/toggle_dark_mode_theme_title"
+            android:title="@string/use_dark_mode_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/languages_title">
+        <Preference
+            android:icon="@drawable/baseline_language_24"
+            android:key="language_preference"
+            android:summary="@string/modify_your_language_settings_description"
+            android:title="@string/change_language_title" />
+    </PreferenceCategory>
+</PreferenceScreen>

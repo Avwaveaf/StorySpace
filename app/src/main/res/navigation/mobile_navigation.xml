@@ -8,12 +8,12 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.avwaveaf.storyspace.view.home.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.avwaveaf.storyspace.view.home.ui.settings.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        android:label="@string/preferences"
+        tools:layout="@xml/preferences" />
 
 </navigation>

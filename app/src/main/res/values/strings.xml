@@ -22,6 +22,13 @@
     <string name="title_settings">Settings</string>
     <string name="email_invalid">Email format are invalid!</string>
     <string name="password_invalid">Password must be up to 8 characters long!</string>
+    <string name="display_appearance_title">Display Appearance</string>
+    <string name="toggle_dark_mode_theme_title">Toggle Dark Mode Theme</string>
+    <string name="use_dark_mode_title">Use Dark Mode</string>
+    <string name="languages_title">Languages</string>
+    <string name="modify_your_language_settings_description">Modify your language settings</string>
+    <string name="change_language_title">Change Language</string>
+    <string name="preferences">Preferences</string>
 
 
 </resources>

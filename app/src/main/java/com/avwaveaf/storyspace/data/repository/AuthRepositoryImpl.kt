@@ -21,9 +21,14 @@ class AuthRepositoryImpl @Inject constructor(
             if (response.error) {
                 Result.failure(Exception(response.message))
             } else {
-                // Save the token and login session
-                sessionManager.saveLoginSession(response.loginResult.token)
-                Result.success(response.loginResult.token)
+                // Save userId, name, and token
+                val loginResult = response.loginResult
+                sessionManager.saveLoginSession(
+                    userId = loginResult.userId,
+                    name = loginResult.name,
+                    token = loginResult.token
+                )
+                Result.success(loginResult.token)
             }
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()

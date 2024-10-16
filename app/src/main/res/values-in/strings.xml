@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Story Space</string>
+    <string name="story_space_logo_description">Story Space Logo</string>
+    <string name="app_tagline">Temukan Kisah Dibalik Setiap Judul.</string>
+    <string name="login">Masuk</string>
+    <string name="register">Daftar</string>
+    <string name="let_s_get_started">Mari kita mulai</string>
+    <string name="don_t_have_an_account">Belum Punya Akun?</string>
+    <string name="register_first">Daftar dulu</string>
+    <string name="idea_1">Jelajahi koleksi cerita menarik yang dibuat pengguna, lengkap dengan nama pengguna dan foto menawan.</string>
+    <string name="idea_2">"Jelajahi koleksi cerita menarik yang dibuat pengguna, lengkap dengan nama pengguna dan foto menawan.  "</string>
+    <string name="idea_3">Bagikan pengalaman unik Anda dengan menambahkan cerita Anda sendiri. Cukup unggah foto dari galeri Anda dan buat deskripsi yang menarik.</string>
+    <string name="already_have_an_account">Sudah Punya Akun?</string>
+    <string name="name">Nama</string>
+    <string name="register_btn">Daftar</string>
+    <string name="title_settings">Pengaturan</string>
+    <string name="email_invalid">Format email tidak valid!</string>
+    <string name="password_invalid">Kata sandi harus lebih dari 8 karakter!</string>
+    <string name="display_appearance_title">Pengaturan Tampilan</string>
+    <string name="toggle_dark_mode_theme_title">Ganti Tema Mode Gelap</string>
+    <string name="use_dark_mode_title">Gunakan Model Gelap</string>
+    <string name="languages_title">Bahasa</string>
+    <string name="modify_your_language_settings_description">Atur pengaturan bahasa</string>
+    <string name="change_language_title">Ubah Bahasa</string>
+    <string name="preferences">Pengaturan</string>
+    <string name="login_failed">Masuk Gagal!</string>
+    <string name="register_detail_invalid">Silahkan Masukan detail yang valid!</string>
+    <string name="logout_title">Logout</string>
+</resources>

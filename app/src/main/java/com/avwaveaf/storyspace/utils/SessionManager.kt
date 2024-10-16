@@ -25,12 +25,16 @@ class SessionManager @Inject constructor(
     companion object {
         private val TOKEN = stringPreferencesKey("token")
         private val IS_LOGGED_IN = booleanPreferencesKey("is_logged_in")
+        private val USER_ID = stringPreferencesKey("user_id") // New key
+        private val USER_NAME = stringPreferencesKey("user_name") // New key
     }
 
-    suspend fun saveLoginSession(token: String) {
+    suspend fun saveLoginSession(userId: String, name: String, token: String) {
         dataStore.edit { preferences ->
             preferences[TOKEN] = token
             preferences[IS_LOGGED_IN] = true
+            preferences[USER_ID] = userId // Save user ID
+            preferences[USER_NAME] = name // Save user name
         }
     }
 
@@ -48,5 +52,15 @@ class SessionManager @Inject constructor(
     val token: Flow<String?> = dataStore.data
         .map { preferences ->
             preferences[TOKEN]
+        }
+
+    val userId: Flow<String?> = dataStore.data
+        .map { preferences ->
+            preferences[USER_ID]
+        }
+
+    val userName: Flow<String?> = dataStore.data
+        .map { preferences ->
+            preferences[USER_NAME]
         }
 }

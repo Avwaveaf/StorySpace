@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.core.widget.addTextChangedListener
+import com.avwaveaf.storyspace.R
 import com.avwaveaf.storyspace.databinding.ActivityRegisterBinding
 import com.avwaveaf.storyspace.view.login.LoginActivity
 import com.google.android.material.snackbar.Snackbar
@@ -53,12 +54,13 @@ class RegisterActivity : AppCompatActivity() {
     private fun validateInput() {
         val emailIsValid = binding.edRegisterEmail.isEmailValid()
         val passwordIsValid = binding.edRegisterPassword.isPasswordValid()
-        val nameIsNotEmpty  =binding.edRegisterName.text.isNullOrBlank()
+        val nameIsNotEmpty = binding.edRegisterName.text.isNullOrBlank()
 
         // Enable button if both fields are valid
         binding.btnRegister.isEnabled =
             emailIsValid && passwordIsValid && binding.edRegisterEmail.text.toString()
-                .isNotEmpty() && binding.edRegisterPassword.text.toString().isNotEmpty() && !nameIsNotEmpty
+                .isNotEmpty() && binding.edRegisterPassword.text.toString()
+                .isNotEmpty() && !nameIsNotEmpty
     }
 
     private fun playAnimation() {
@@ -124,7 +126,10 @@ class RegisterActivity : AppCompatActivity() {
                 registerUser(name, email, password)
             } else {
                 showLoading(false)
-                Snackbar.make(binding.root, "Please enter valid details", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.register_detail_invalid), Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -138,7 +143,7 @@ class RegisterActivity : AppCompatActivity() {
             showLoading(false)
             Snackbar.make(binding.root, result, Snackbar.LENGTH_SHORT).show()
         }
-        viewModel.registrationResultError.observe(this){ error->
+        viewModel.registrationResultError.observe(this) { error ->
             if (!error) {
                 navigateToLoginScreen()
             }

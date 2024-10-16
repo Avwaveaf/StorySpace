@@ -4,9 +4,8 @@
     <string name="app_tagline">Discover the Story Behind Every Headline.</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="let_s_get_started">Let\'s get Started!</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="password" translatable="false">Password</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="register_first">Register first</string>
     <string name="idea_1">Browse through an exciting collection of user-generated stories, complete with user names and captivating photos.</string>
@@ -15,10 +14,10 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="name">Name</string>
     <string name="register_btn">Register</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_home" translatable="false">HomeActivity</string>
+    <string name="title_home" translatable="false">Home</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications" translatable="false">Notifications</string>
     <string name="title_settings">Settings</string>
     <string name="email_invalid">Email format are invalid!</string>
     <string name="password_invalid">Password must be up to 8 characters long!</string>
@@ -29,6 +28,10 @@
     <string name="modify_your_language_settings_description">Modify your language settings</string>
     <string name="change_language_title">Change Language</string>
     <string name="preferences">Preferences</string>
+    <string name="login_failed">Login failed</string>
+    <string name="register_detail_invalid">Please enter valid details</string>
+    <string name="let_s_get_started">Let\'s get Started!</string>
+    <string name="logout_title">Logout</string>
 
 
 </resources>

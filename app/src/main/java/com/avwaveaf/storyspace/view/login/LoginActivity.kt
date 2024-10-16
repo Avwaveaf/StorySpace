@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.core.widget.addTextChangedListener
+import com.avwaveaf.storyspace.R
 import com.avwaveaf.storyspace.databinding.ActivityLoginBinding
 import com.avwaveaf.storyspace.view.home.HomeActivity
 import com.avwaveaf.storyspace.view.register.RegisterActivity
@@ -68,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                     showLoading(false)
 
                     // Show error message using Snackbar
-                    Snackbar.make(binding.root, exception.message ?: "Login failed", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, exception.message ?: getString(R.string.login_failed), Snackbar.LENGTH_SHORT).show()
                 }
             }
         }

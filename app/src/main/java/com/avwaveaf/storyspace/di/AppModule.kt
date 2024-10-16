@@ -2,8 +2,10 @@ package com.avwaveaf.storyspace.di
 
 import android.app.Application
 import android.content.Context
-import com.avwaveaf.storyspace.data.repository.AuthRepository
-import com.avwaveaf.storyspace.data.repository.AuthRepositoryImpl
+import com.avwaveaf.storyspace.data.repository.auth.AuthRepository
+import com.avwaveaf.storyspace.data.repository.auth.AuthRepositoryImpl
+import com.avwaveaf.storyspace.data.repository.story.StoryRepository
+import com.avwaveaf.storyspace.data.repository.story.StoryRepositoryImpl
 import com.avwaveaf.storyspace.utils.SessionManager
 import dagger.Binds
 import dagger.Module
@@ -21,6 +23,12 @@ abstract class AppModule {
     abstract fun bindAuthRepository(
         authRepositoryImpl: AuthRepositoryImpl
     ): AuthRepository
+
+    @Binds
+    abstract fun bindStoryRepository(
+        storyRepositoryImpl: StoryRepositoryImpl
+    ): StoryRepository
+
 
     companion object {
         // Provide the application context

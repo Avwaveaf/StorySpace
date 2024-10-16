@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:paddingEnd="16dp"
         android:paddingTop="8dp"
+        android:background="@color/md_theme_surface"
         android:layout_height="wrap_content"
         tools:ignore="RtlSymmetry">
 

@@ -2,8 +2,10 @@ package com.avwaveaf.storyspace.network
 
 import com.avwaveaf.storyspace.data.model.LoginResponse
 import com.avwaveaf.storyspace.data.model.RegisterResponse
+import com.avwaveaf.storyspace.data.model.StoryResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -21,4 +23,8 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): RegisterResponse
+
+    @GET("stories")
+    suspend fun getStories(): StoryResponse
+
 }

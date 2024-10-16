@@ -1,4 +1,4 @@
-package com.avwaveaf.storyspace.data.repository
+package com.avwaveaf.storyspace.data.repository.auth
 
 import com.avwaveaf.storyspace.data.model.RegisterResponse
 

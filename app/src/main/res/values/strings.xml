@@ -32,6 +32,7 @@
     <string name="register_detail_invalid">Please enter valid details</string>
     <string name="let_s_get_started">Let\'s get Started!</string>
     <string name="logout_title">Logout</string>
+    <string name="error_fetching_story">Error Fetching Story: %1$s</string>
 
 
 </resources>

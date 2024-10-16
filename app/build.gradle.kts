@@ -43,6 +43,9 @@ android {
 
 dependencies {
 
+    // Glide deps
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
     // Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -52,6 +55,9 @@ dependencies {
 // Retrofit and Gson
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    // logging interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
 // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.6")
@@ -65,7 +71,7 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     // Preference Deps
-    implementation ("androidx.preference:preference:1.2.1")
+    implementation("androidx.preference:preference:1.2.1")
 
 
     implementation(libs.androidx.core.ktx)

@@ -2,7 +2,7 @@ package com.avwaveaf.storyspace.view.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.avwaveaf.storyspace.data.repository.AuthRepository
+import com.avwaveaf.storyspace.data.repository.auth.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

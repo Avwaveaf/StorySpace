@@ -26,5 +26,5 @@
     <string name="preferences">Pengaturan</string>
     <string name="login_failed">Masuk Gagal!</string>
     <string name="register_detail_invalid">Silahkan Masukan detail yang valid!</string>
-    <string name="logout_title">Logout</string>
+    <string name="logout_title">Keluar</string>
 </resources>

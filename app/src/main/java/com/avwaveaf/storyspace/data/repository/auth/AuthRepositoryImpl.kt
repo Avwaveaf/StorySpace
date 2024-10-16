@@ -1,6 +1,5 @@
-package com.avwaveaf.storyspace.data.repository
+package com.avwaveaf.storyspace.data.repository.auth
 
-import android.util.Log
 import com.avwaveaf.storyspace.data.model.LoginResponse
 import com.avwaveaf.storyspace.data.model.RegisterResponse
 import com.avwaveaf.storyspace.network.ApiService
@@ -45,7 +44,6 @@ class AuthRepositoryImpl @Inject constructor(
         password: String
     ): Result<RegisterResponse> {
         return try {
-            Log.d("Register", "from repo $name, email: $email, pwd:$password")
             val response = apiService.registerUser(name, email, password)
             if (!response.error) {
                 Result.success(response) // Return success

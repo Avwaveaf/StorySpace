@@ -15,11 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StorySpace"
         tools:targetApi="31">
-        <activity
-            android:name=".view.home.HomeActivity"
-            android:exported="false" />
+
         <activity
             android:name=".view.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.home.HomeActivity"
+            android:theme="@style/Theme.StorySpace"
             android:exported="false" />
         <activity
             android:name=".view.login.LoginActivity"

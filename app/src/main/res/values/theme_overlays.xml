@@ -76,6 +76,18 @@
         <item name="android:fontWeight">400</item> <!-- Regular weight for readability -->
     </style>
 
+    <style name="Theme.StorySpace.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light">
+
+        <!-- Customize the text appearance of menu items -->
+        <item name="android:textAppearance">@style/TextAppearance.StorySpace.PopupMenuItem</item>
+    </style>
+
+    <!-- Optional: Define a custom text appearance for menu items -->
+    <style name="TextAppearance.StorySpace.PopupMenuItem" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/merriweather_headline</item>
+    </style>
+
 
     <!-- Subheadline Style -->
     <style name="TextAppearance.StorySpace.SubHeadline" parent="Theme.Material3.Light.NoActionBar">
@@ -131,6 +143,12 @@
         <item name="android:background">@drawable/edit_text_bg</item>
         <item name="android:drawablePadding">16dp</item>
         <item name="android:textAppearance">@style/TextAppearance.StorySpace.InputText</item>
+    </style>
+
+
+    <style name="fab_rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
 

@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
 
             loginViewModel.login(email, password) { result ->
                 result.onSuccess {
-                    // Navigate to HomeActivity
+//                     Navigate to HomeActivity
                     val intent = Intent(this, HomeActivity::class.java)
                     showLoading(false)
                     startActivity(intent)

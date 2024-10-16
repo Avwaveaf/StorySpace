@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Patterns
 import androidx.appcompat.widget.AppCompatEditText
+import com.avwaveaf.storyspace.R
 
 class EmailEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -25,7 +26,7 @@ class EmailEditText @JvmOverloads constructor(
 
     private fun validateEmail(s: CharSequence?) {
         if (s.isNullOrEmpty() || !Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
-            error = "Format email tidak valid"
+            error = context.getString(R.string.email_invalid)
         } else {
             error = null
         }

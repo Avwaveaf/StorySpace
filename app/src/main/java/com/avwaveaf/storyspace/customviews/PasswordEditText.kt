@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import com.avwaveaf.storyspace.R
 
 class PasswordEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -24,7 +25,7 @@ class PasswordEditText @JvmOverloads constructor(
 
     private fun validatePassword(s: CharSequence?) {
         if (s != null && s.length < 8) {
-            error = "Password cannot be less than 8 characters long"
+            error = context.getString(R.string.password_invalid)
         } else {
             error = null
         }

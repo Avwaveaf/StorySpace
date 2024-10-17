@@ -4,14 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.preference.PreferenceManager
 import com.avwaveaf.storyspace.R
 import com.avwaveaf.storyspace.databinding.ActivityMainBinding
 import com.avwaveaf.storyspace.utils.SessionManager
 import com.avwaveaf.storyspace.view.home.HomeActivity
+import com.avwaveaf.storyspace.view.home.ui.settings.SettingsFragment
 import com.avwaveaf.storyspace.view.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        applyThemFromPreference()
 
         // Check if user is already logged in
         CoroutineScope(Dispatchers.Main).launch {
@@ -75,4 +78,16 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
     }
+    private fun applyThemFromPreference() {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val isDarkMode = sharedPreferences.getBoolean(SettingsFragment.THEME_KEY, false)
+
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        }
+    }
+
 }

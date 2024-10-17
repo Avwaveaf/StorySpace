@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="18dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginVertical="8dp"
-    android:layout_height="wrap_content">
+    app:cardCornerRadius="18dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,44 +17,47 @@
             android:id="@+id/image_story"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:transitionName="sharedImage" />
 
         <TextView
             android:id="@+id/text_story_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:textSize="18sp"
             android:layout_marginHorizontal="16dp"
-            tools:text="story title"
+            android:layout_marginTop="18dp"
             android:textAppearance="@style/TextAppearance.StorySpace.SubHeadline"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:transitionName="sharedTitle"
+            tools:text="story title" />
 
         <TextView
             android:id="@+id/text_story_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textAppearance="@style/TextAppearance.StorySpace.Caption"
-            tools:text="detail description"
-            android:maxLines="4"
             android:layout_marginHorizontal="16dp"
-            android:textSize="14sp" />
+            android:layout_marginTop="4dp"
+            android:maxLines="4"
+            android:textAppearance="@style/TextAppearance.StorySpace.Caption"
+            android:textSize="14sp"
+            android:transitionName="sharedDescription"
+            tools:text="detail description" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/md_theme_surfaceContainerHigh"
-            android:layout_marginTop="12dp"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="2dp" />
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/md_theme_surfaceContainerHigh" />
 
         <TextView
             android:id="@+id/text_story_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
             android:textAppearance="@style/TextAppearance.StorySpace.Caption"
             tools:text="date" />

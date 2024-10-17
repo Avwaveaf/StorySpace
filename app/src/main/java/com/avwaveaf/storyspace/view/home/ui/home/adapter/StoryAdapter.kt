@@ -11,7 +11,7 @@ import com.avwaveaf.storyspace.databinding.ItemStoryBinding
 import com.avwaveaf.storyspace.helper.formatDate
 import com.bumptech.glide.Glide
 
-class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(StoryDiffCallback()) {
+class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) -> Unit,) : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(StoryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
         val binding = ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -32,12 +32,17 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(St
             Glide.with(itemView.context)
                 .load(story.photoUrl)
                 .into(binding.imageStory)
+
+            binding.root.setOnClickListener{
+                onItemClick(story, binding)
+            }
+
         }
     }
 
     class StoryDiffCallback : DiffUtil.ItemCallback<ListStoryItem>() {
         override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
-            return oldItem.id == newItem.id // Assuming id is unique
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {

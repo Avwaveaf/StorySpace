@@ -1,15 +1,19 @@
 package com.avwaveaf.storyspace.view.home.ui.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.avwaveaf.storyspace.databinding.FragmentHomeBinding
+import com.avwaveaf.storyspace.view.home.ui.detail.DetailActivity
 import com.avwaveaf.storyspace.view.home.ui.home.adapter.StoryAdapter
 import com.avwaveaf.storyspace.view.home.ui.settings.SettingsFragment
 import com.google.android.material.snackbar.Snackbar
@@ -22,6 +26,12 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var storyAdapter: StoryAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,11 +71,26 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        storyAdapter = StoryAdapter()
+        storyAdapter = StoryAdapter { story, itemBinding ->
+            // Create intent to start DetailActivity
+            val intent = Intent(requireContext(), DetailActivity::class.java)
+            intent.putExtra("story_data", story) // Pass story data to DetailActivity
+
+            // Set up shared element transition options
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                requireActivity(),
+                androidx.core.util.Pair(itemBinding.imageStory, "sharedImage"),
+                androidx.core.util.Pair(itemBinding.textStoryName, "sharedTitle"),
+                androidx.core.util.Pair(itemBinding.textStoryDescription, "sharedDescription")
+            )
+
+            // Start the activity with shared element transition
+            startActivity(intent, options.toBundle())
+        }
+
         binding.rvStories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvStories.adapter = storyAdapter
     }
-
 
     private fun showLoading(flag: Boolean) {
         if (flag) {

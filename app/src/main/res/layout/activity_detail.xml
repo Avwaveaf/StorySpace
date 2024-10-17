@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailStoryFragment">
+
+    <ImageView
+        android:id="@+id/iv_story_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:transitionName="sharedImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_story_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/iv_story_image"
+        tools:text="Story title"
+        android:layout_marginHorizontal="16dp"
+        android:textAppearance="@style/TextAppearance.StorySpace.Headline"
+        android:transitionName="sharedTitle" />
+
+    <TextView
+        android:id="@+id/tv_story_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:textAppearance="@style/TextAppearance.StorySpace.BodyText"
+        app:layout_constraintTop_toBottomOf="@id/tv_story_title"
+        app:layout_constraintStart_toStartOf="@id/tv_story_title"
+        app:layout_constraintEnd_toEndOf="@id/tv_story_title"
+        android:text="@string/hello_blank_fragment"
+        android:transitionName="sharedDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,18 +76,21 @@
 
         <Button
             android:id="@+id/btn_add_story"
-            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="34dp"
-            android:backgroundTint="@color/md_theme_primary"
             android:contentDescription="@string/add_new_story"
-            android:drawableLeft="@drawable/baseline_send_24"
+            android:drawableEnd="@drawable/baseline_send_24"
+            android:drawablePadding="16dp"
+            android:enabled="false"
+            android:text="@string/add_story_btn_title"
+            android:textAppearance="@style/TextAppearance.StorySpace.BodyText"
             app:layout_constraintBottom_toBottomOf="@id/btn_gallery_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_gallery" />
+            app:layout_constraintTop_toTopOf="@id/btn_gallery"
+            tools:ignore="RtlHardcoded" />
 
         <!-- Title input field -->
         <com.google.android.material.textfield.TextInputLayout
@@ -95,7 +98,6 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="34dp"
             android:hint="@string/what_s_the_story_about_hint"
             app:boxStrokeWidth="0dp"
@@ -123,7 +125,6 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
             android:hint="@string/compose_your_story_details_hint"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"

@@ -4,6 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
     <application
         android:name=".StorySpaceApp"
         android:allowBackup="true"
@@ -15,14 +22,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StorySpace"
         tools:targetApi="31">
-
+        <activity
+            android:name=".view.home.ui.compose.CameraActivity"
+            android:exported="false" />
         <activity
             android:name=".view.register.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".view.home.HomeActivity"
-            android:theme="@style/Theme.StorySpace"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.StorySpace" />
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="false" />
@@ -34,18 +43,20 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Trigger Google Play services to install the backported photo picker module. -->
-        <!--suppress AndroidDomInspection -->
-        <service android:name="com.google.android.gms.metadata.ModuleDependencies"
+        </activity> <!-- Trigger Google Play services to install the backported photo picker module. -->
+        <!-- suppress AndroidDomInspection -->
+        <service
+            android:name="com.google.android.gms.metadata.ModuleDependencies"
             android:enabled="false"
             android:exported="false"
             tools:ignore="MissingClass">
             <intent-filter>
                 <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
             </intent-filter>
-            <meta-data android:name="photopicker_activity:0:required" android:value="" />
+
+            <meta-data
+                android:name="photopicker_activity:0:required"
+                android:value="" />
         </service>
     </application>
 

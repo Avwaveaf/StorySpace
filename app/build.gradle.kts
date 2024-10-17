@@ -43,6 +43,11 @@ android {
 
 dependencies {
 
+    // camera x deps
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.camera.lifecycle)
+    implementation(libs.camera.view)
+
     // Glide deps
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 

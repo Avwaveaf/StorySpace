@@ -33,6 +33,8 @@ class HomeFragment : Fragment() {
         applyThemFromPreference()
         showLoading(true)
 
+        fetchStories()
+
         // Initialize RecyclerView
         setupRecyclerView()
 
@@ -52,6 +54,10 @@ class HomeFragment : Fragment() {
         }
 
         return root
+    }
+
+    private fun fetchStories() {
+        homeViewModel.fetchStories()
     }
 
     private fun setupRecyclerView() {

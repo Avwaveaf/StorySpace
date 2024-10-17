@@ -21,11 +21,8 @@ class HomeViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
-    init {
-        fetchStories()
-    }
 
-    private fun fetchStories() {
+    fun fetchStories() {
         viewModelScope.launch {
             val result = storyRepository.getStories()
             result.onSuccess {

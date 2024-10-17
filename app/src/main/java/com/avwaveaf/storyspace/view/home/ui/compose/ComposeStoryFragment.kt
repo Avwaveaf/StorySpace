@@ -16,16 +16,28 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.avwaveaf.storyspace.R
 import com.avwaveaf.storyspace.databinding.FragmentComposeStoryBinding
+import com.avwaveaf.storyspace.helper.reduceFileImage
+import com.avwaveaf.storyspace.helper.uriToFile
 import com.avwaveaf.storyspace.view.home.ui.compose.CameraActivity.Companion.CAMERAX_RESULT
+import com.avwaveaf.storyspace.view.home.ui.home.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
-
+@AndroidEntryPoint
 class ComposeStoryFragment : Fragment() {
 
     private var _binding: FragmentComposeStoryBinding? = null
     private val binding get() = _binding!!
 
     private var currentUri: Uri? = null
+    private val viewModel: ComposeStoryViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
 
     private fun allPermissionsGranted() =
         ContextCompat.checkSelfPermission(
@@ -52,12 +64,31 @@ class ComposeStoryFragment : Fragment() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                Toast.makeText(requireContext(), "Permission request granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Permission request granted", Toast.LENGTH_LONG)
+                    .show()
             } else {
-                Toast.makeText(requireContext(), "Permission request denied", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Permission request denied", Toast.LENGTH_LONG)
+                    .show()
             }
         }
 
+    private fun observeViewModel() {
+        viewModel.isUploading.observe(viewLifecycleOwner) { isUploading ->
+            showLoading(isUploading)
+        }
+        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                showToast(it)
+            }
+        }
+        viewModel.uploadSuccess.observe(viewLifecycleOwner) { success ->
+            if (success == true) {
+                //update latest stories
+                homeViewModel.fetchStories()
+                goBackToPreviousFragment()
+            }
+        }
+    }
 
     private fun showImage() {
         currentUri?.let {
@@ -79,6 +110,7 @@ class ComposeStoryFragment : Fragment() {
         if (!allPermissionsGranted()) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
+        observeViewModel()
         setupListeners()
         updateAddStoryButtonState()
     }
@@ -91,11 +123,51 @@ class ComposeStoryFragment : Fragment() {
         binding.etStoryDescription.addTextChangedListener { updateAddStoryButtonState() }
 
         binding.btnAddStory.setOnClickListener {
-            // Implement your logic to add the story here
-            Toast.makeText(requireContext(), "Adding story...", Toast.LENGTH_SHORT).show()
+            showLoading(true)
+            uploadImage()
         }
     }
 
+    private fun uploadImage() {
+        currentUri?.let { uri ->
+            val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
+            val description = binding.etStoryDescription.text.toString()
+            val requestBody = description.toRequestBody("text/plain".toMediaType())
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+
+            val multipartBody = MultipartBody.Part.createFormData(
+                "photo", imageFile.name, requestImageFile
+            )
+            viewModel.uploadImage(multipartBody, requestBody)
+        } ?: showToast(getString(R.string.image_file_cannot_be_null_warning))
+    }
+
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+
+    private fun showLoading(flag: Boolean) {
+        if (flag) {
+            with(binding) {
+                pbLoading.visibility = View.VISIBLE
+                laodingOverlay.visibility = View.VISIBLE
+                pbBackgroundOverlay.visibility = View.VISIBLE
+            }
+        } else {
+            with(binding) {
+                pbLoading.visibility = View.GONE
+                laodingOverlay.visibility = View.GONE
+                pbBackgroundOverlay.visibility = View.GONE
+            }
+        }
+    }
+
+
+    private fun goBackToPreviousFragment() {
+        parentFragmentManager.popBackStack()
+    }
 
     private fun updateAddStoryButtonState() {
         val isTitleEmpty = binding.etStoryTitle.text.isNullOrBlank()

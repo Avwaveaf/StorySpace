@@ -43,6 +43,9 @@ android {
 
 dependencies {
 
+    // exinterface
+    implementation(libs.androidx.exifinterface)
+
     // camera x deps
     implementation(libs.androidx.camera.camera2)
     implementation(libs.camera.lifecycle)

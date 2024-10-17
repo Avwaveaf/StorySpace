@@ -33,7 +33,6 @@
     <string name="let_s_get_started">Let\'s get Started!</string>
     <string name="logout_title">Logout</string>
     <string name="error_fetching_story">Error Fetching Story: %1$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="add_new_story">Add new story</string>
     <string name="compose_a_story">Compose A Story</string>
@@ -49,6 +48,13 @@
     <string name="image_file_cannot_be_null_warning">Image file cannot be null</string>
     <string name="error_uploading_this_story">Error uploading this story</string>
     <string name="story_detail">Story Detail</string>
+    <string name="swap_camera">swap camera</string>
+    <string name="appwidget_text" translatable="false">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">Get latest stories right in your home screen</string>
+    <string name="no_story_at_the_moment">No Story at the moment</string>
+    <string name="latest_story_for_you">Latest Story for you</string>
+    <string name="please_wait_while_we_fetching_stories_for_you">Please wait while we fetching stories for you..</string>
 
 
 </resources>

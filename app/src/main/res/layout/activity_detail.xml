@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DetailStoryFragment">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/iv_story_image"
@@ -12,7 +11,8 @@
         android:layout_height="250dp"
         android:scaleType="centerCrop"
         android:transitionName="sharedImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tv_story_title"

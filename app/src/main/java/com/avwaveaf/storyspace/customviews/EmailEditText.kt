@@ -25,10 +25,10 @@ class EmailEditText @JvmOverloads constructor(
     }
 
     private fun validateEmail(s: CharSequence?) {
-        if (s.isNullOrEmpty() || !Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
-            error = context.getString(R.string.email_invalid)
+        error = if (s.isNullOrEmpty() || !Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
+            context.getString(R.string.email_invalid)
         } else {
-            error = null
+            null
         }
     }
 

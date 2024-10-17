@@ -24,10 +24,10 @@ class PasswordEditText @JvmOverloads constructor(
     }
 
     private fun validatePassword(s: CharSequence?) {
-        if (s != null && s.length < 8) {
-            error = context.getString(R.string.password_invalid)
+        error = if (s != null && s.length < 8) {
+            context.getString(R.string.password_invalid)
         } else {
-            error = null
+            null
         }
     }
 

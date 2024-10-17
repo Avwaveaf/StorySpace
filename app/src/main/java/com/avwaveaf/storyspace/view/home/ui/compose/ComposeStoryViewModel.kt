@@ -19,7 +19,7 @@ class ComposeStoryViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
 
-    private val _isUploading = MutableLiveData<Boolean>(false)
+    private val _isUploading = MutableLiveData(false)
     val isUploading: LiveData<Boolean> get() = _isUploading
 
     private val _uploadSuccess = MutableLiveData<Boolean>()

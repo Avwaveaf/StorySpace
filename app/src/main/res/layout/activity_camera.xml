@@ -19,6 +19,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/capture_title"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_capture" />
 
@@ -26,6 +27,7 @@
         android:id="@+id/switchCamera"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:contentDescription="@string/swap_camera"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="@+id/viewFinder"

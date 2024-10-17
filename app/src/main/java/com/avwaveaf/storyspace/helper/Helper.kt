@@ -11,6 +11,8 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -79,10 +81,23 @@ fun Bitmap.getRotatedBitmap(file: File): Bitmap? {
     }
 }
 
-fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+fun rotateImage(source: Bitmap, angle: Float): Bitmap {
     val matrix = Matrix()
     matrix.postRotate(angle)
     return Bitmap.createBitmap(
         source, 0, 0, source.width, source.height, matrix, true
     )
+}
+
+fun loadBitmapFromUrl(url: String): Bitmap? {
+    return try {
+        val connection = URL(url).openConnection() as HttpURLConnection
+        connection.doInput = true
+        connection.connect()
+        val input: InputStream = connection.inputStream
+        BitmapFactory.decodeStream(input)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
 }

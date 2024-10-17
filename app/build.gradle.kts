@@ -44,10 +44,17 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.hilt.common)
+    implementation(libs.androidx.hilt.work)
     val nav_version = "2.8.3"
     // Views/Fragments integration
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
+
+
+    val work_version = "2.9.1"
+
+    implementation("androidx.work:work-runtime-ktx:$work_version")
 
 
     // exinterface
@@ -66,6 +73,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    kapt ("androidx.hilt:hilt-compiler:1.2.0")
 
 // Retrofit and Gson
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
@@ -80,6 +88,7 @@ dependencies {
 
 // Coroutine support for Retrofit
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    //noinspection GradleDependency
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     // Data Store Deps

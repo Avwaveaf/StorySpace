@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:scaleType="centerCrop"
-            android:transitionName="sharedImage" />
+            android:transitionName="sharedImage"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/text_story_name"

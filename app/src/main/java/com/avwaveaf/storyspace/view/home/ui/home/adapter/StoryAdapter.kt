@@ -11,7 +11,7 @@ import com.avwaveaf.storyspace.databinding.ItemStoryBinding
 import com.avwaveaf.storyspace.helper.formatDate
 import com.bumptech.glide.Glide
 
-class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) -> Unit,) : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(StoryDiffCallback()) {
+class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) -> Unit) : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(StoryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
         val binding = ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)

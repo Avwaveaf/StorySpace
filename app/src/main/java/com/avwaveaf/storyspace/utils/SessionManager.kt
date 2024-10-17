@@ -54,13 +54,4 @@ class SessionManager @Inject constructor(
             preferences[TOKEN]
         }
 
-    val userId: Flow<String?> = dataStore.data
-        .map { preferences ->
-            preferences[USER_ID]
-        }
-
-    val userName: Flow<String?> = dataStore.data
-        .map { preferences ->
-            preferences[USER_NAME]
-        }
 }

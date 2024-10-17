@@ -2,6 +2,8 @@ package com.avwaveaf.storyspace.di
 
 import android.app.Application
 import android.content.Context
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.WorkerFactory
 import com.avwaveaf.storyspace.data.repository.auth.AuthRepository
 import com.avwaveaf.storyspace.data.repository.auth.AuthRepositoryImpl
 import com.avwaveaf.storyspace.data.repository.story.StoryRepository
@@ -15,6 +17,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 
+@Suppress("unused", "unused")
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class AppModule {
@@ -28,6 +31,11 @@ abstract class AppModule {
     abstract fun bindStoryRepository(
         storyRepositoryImpl: StoryRepositoryImpl
     ): StoryRepository
+
+    @Binds
+    abstract fun bindWorkerFactory(
+        factory: HiltWorkerFactory
+    ): WorkerFactory
 
 
     companion object {

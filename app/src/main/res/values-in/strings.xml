@@ -31,4 +31,22 @@
     <string name="add_new_story">Tambah Cerita baru</string>
 
     <string name="compose_a_story">Tulis Cerita Baru</string>
+    <string name="capture_title">Foto</string>
+    <string name="capture_story_description">Ambil Gambar</string>
+    <string name="browse_gallery_description">Galeri</string>
+    <string name="story_image_preview_description">Foto Cerita</string>
+    <string name="gallery_title">Galeri</string>
+    <string name="compose_your_story_details_hint">Berikan detail ceritamu</string>
+    <string name="what_s_the_story_about_hint">Tentang apa cerita ini?</string>
+    <string name="add_story_btn_title">Tambahkan</string>
+    <string name="fail_to_show_camera">Gagal membuka kamera</string>
+    <string name="image_file_cannot_be_null_warning">File foto tidak bisa kosong.</string>
+    <string name="error_uploading_this_story">Gagal upload cerita.</string>
+    <string name="story_detail">Detail Cerita</string>
+    <string name="swap_camera">Balik Kamera</string>
+    <string name="add_widget">tambahkan widget</string>
+    <string name="app_widget_description">Dapatkan cerita terbaru di Halaman utama layar kamu!.</string>
+    <string name="no_story_at_the_moment">Tidak ada cerita untuk sekarang.</string>
+    <string name="latest_story_for_you">Cerita Terbaru untuk mu</string>
+    <string name="please_wait_while_we_fetching_stories_for_you">Mohon tunggu, sedang mengambil cerita terbaru...</string>
 </resources>

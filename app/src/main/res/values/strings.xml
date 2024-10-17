@@ -37,6 +37,14 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="add_new_story">Add new story</string>
     <string name="compose_a_story">Compose A Story</string>
+    <string name="capture_title">Capture</string>
+    <string name="capture_story_description">Capture story</string>
+    <string name="browse_gallery_description">browse gallery</string>
+    <string name="story_image_preview_description">Story Image Preview</string>
+    <string name="gallery_title">Gallery</string>
+    <string name="compose_your_story_details_hint">Compose Your Story Details..</string>
+    <string name="what_s_the_story_about_hint">What\'s The Story About?</string>
+    <string name="add_story_btn_title">Add Story</string>
 
 
 </resources>

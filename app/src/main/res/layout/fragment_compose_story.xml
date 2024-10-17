@@ -1,13 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.home.ui.compose.ComposeStoryFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="New story page" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+
+        <!-- Image preview -->
+        <ImageView
+            android:id="@+id/iv_image_preview"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:contentDescription="@string/story_image_preview_description"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_place_holder"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Camera button -->
+        <Button
+            android:id="@+id/btn_camera"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/md_theme_surfaceContainerHigh_semi"
+            android:contentDescription="@string/capture_story_description"
+            android:drawableLeft="@drawable/baseline_add_a_photo_24"
+            android:textAppearance="@style/TextAppearance.StorySpace.Button"
+            app:layout_constraintBottom_toBottomOf="@id/iv_image_preview"
+            app:layout_constraintEnd_toStartOf="@id/btn_gallery"
+            app:layout_constraintTop_toBottomOf="@id/iv_image_preview"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/md_theme_surfaceContainerHigh_semi"
+            android:text="@string/capture_title"
+            android:textAppearance="@style/TextAppearance.StorySpace.Caption"
+            app:layout_constraintEnd_toEndOf="@id/btn_camera"
+            app:layout_constraintStart_toStartOf="@id/btn_camera"
+            app:layout_constraintTop_toBottomOf="@id/btn_camera" />
+
+        <!-- Gallery button -->
+        <Button
+            android:id="@+id/btn_gallery"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/md_theme_surfaceContainerHigh_semi"
+            android:contentDescription="@string/browse_gallery_description"
+            android:drawableLeft="@drawable/baseline_add_photo_alternate_24"
+            android:textAppearance="@style/TextAppearance.StorySpace.Button"
+            app:layout_constraintBottom_toBottomOf="@id/btn_camera"
+            app:layout_constraintEnd_toStartOf="@id/btn_add_story"
+            app:layout_constraintTop_toTopOf="@id/btn_camera"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/btn_gallery_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/md_theme_surfaceContainerHigh_semi"
+            android:text="@string/gallery_title"
+            android:textAppearance="@style/TextAppearance.StorySpace.Caption"
+            app:layout_constraintEnd_toEndOf="@id/btn_gallery"
+            app:layout_constraintStart_toStartOf="@id/btn_gallery"
+            app:layout_constraintTop_toBottomOf="@id/btn_gallery" />
+
+        <Button
+            android:id="@+id/btn_add_story"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="34dp"
+            android:backgroundTint="@color/md_theme_primary"
+            android:contentDescription="@string/add_new_story"
+            android:drawableLeft="@drawable/baseline_send_24"
+            app:layout_constraintBottom_toBottomOf="@id/btn_gallery_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_gallery" />
+
+        <!-- Title input field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_story_title"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="34dp"
+            android:hint="@string/what_s_the_story_about_hint"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/btn_camera">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_story_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="2"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:textAppearance="@style/TextAppearance.StorySpace.SubHeadline"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Description input field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_story_description"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:hint="@string/compose_your_story_details_hint"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/til_story_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_story_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textAppearance="@style/TextAppearance.StorySpace.BodyText"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

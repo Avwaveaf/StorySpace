@@ -44,18 +44,15 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.hilt.common)
-    implementation(libs.androidx.hilt.work)
-    val nav_version = "2.8.3"
+    // GMS
+    implementation (libs.play.services.base)
+
     // Views/Fragments integration
-    implementation("androidx.navigation:navigation-fragment:$nav_version")
-    implementation("androidx.navigation:navigation-ui:$nav_version")
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
 
-
-    val work_version = "2.9.1"
-
-    implementation("androidx.work:work-runtime-ktx:$work_version")
-
+    // WorkManager
+    implementation(libs.androidx.work.runtime.ktx)
 
     // exinterface
     implementation(libs.androidx.exifinterface)
@@ -66,36 +63,38 @@ dependencies {
     implementation(libs.camera.view)
 
     // Glide deps
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation (libs.glide)
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.hilt.android)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-    kapt ("androidx.hilt:hilt-compiler:1.2.0")
+    kapt(libs.hilt.android.compiler)
+    kapt (libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.common)
+    implementation(libs.androidx.hilt.work)
 
-// Retrofit and Gson
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    // Retrofit and Gson
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.converter.gson)
 
     // logging interceptor
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation(libs.logging.interceptor)
 
-// ViewModel and LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.6")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
+    // ViewModel and LiveData
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-// Coroutine support for Retrofit
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    // Coroutine support for Retrofit
+    implementation(libs.jetbrains.kotlinx.coroutines.core)
     //noinspection GradleDependency
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation(libs.kotlinx.coroutines.android)
 
     // Data Store Deps
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation(libs.androidx.datastore.preferences)
 
     // Preference Deps
-    implementation("androidx.preference:preference:1.2.1")
+    implementation(libs.androidx.preference)
 
 
     implementation(libs.androidx.core.ktx)

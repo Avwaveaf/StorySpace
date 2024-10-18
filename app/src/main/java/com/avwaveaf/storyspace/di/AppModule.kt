@@ -17,7 +17,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 
-@Suppress("unused", "unused")
+@Suppress("unused")
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class AppModule {

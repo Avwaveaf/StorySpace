@@ -48,5 +48,5 @@
     <string name="app_widget_description">Dapatkan cerita terbaru di Halaman utama layar kamu!.</string>
     <string name="no_story_at_the_moment">Tidak ada cerita untuk sekarang.</string>
     <string name="latest_story_for_you">Cerita Terbaru untuk mu</string>
-    <string name="please_wait_while_we_fetching_stories_for_you">Mohon tunggu, sedang mengambil cerita terbaru...</string>
+    <string name="please_wait_while_we_fetching_stories_for_you">Mohon tunggu, sedang mengambil cerita terbaru…</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.avwaveaf.storyspace.R
 import com.avwaveaf.storyspace.data.model.ListStoryItem
 import com.avwaveaf.storyspace.databinding.ItemStoryBinding
 import com.avwaveaf.storyspace.helper.formatDate
@@ -19,12 +20,12 @@ class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) ->
     }
 
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), position == itemCount - 1)
     }
 
     inner class StoryViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(story: ListStoryItem) {
+        fun bind(story: ListStoryItem, isLast:Boolean) {
             binding.textStoryName.text = story.name
             binding.textStoryDescription.text = story.description
             binding.textStoryDate.text = formatDate(dateString = story.createdAt.toString())
@@ -36,6 +37,15 @@ class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) ->
             binding.root.setOnClickListener{
                 onItemClick(story, binding)
             }
+
+            // Adjust bottom margin if this is the last item
+            val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+            if (isLast) {
+                layoutParams.bottomMargin = itemView.context.resources.getDimensionPixelSize(R.dimen.last_listitem_margin)
+            } else {
+                layoutParams.bottomMargin = itemView.context.resources.getDimensionPixelSize(R.dimen.default_listitem_margin)
+            }
+            binding.root.layoutParams = layoutParams
 
         }
     }

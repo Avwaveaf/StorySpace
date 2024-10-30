@@ -3,8 +3,8 @@ package com.avwaveaf.storyspace.view.home.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.avwaveaf.storyspace.R
 import com.avwaveaf.storyspace.data.model.ListStoryItem
@@ -12,7 +12,7 @@ import com.avwaveaf.storyspace.databinding.ItemStoryBinding
 import com.avwaveaf.storyspace.helper.formatDate
 import com.bumptech.glide.Glide
 
-class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) -> Unit) : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(StoryDiffCallback()) {
+class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) -> Unit) : PagingDataAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(StoryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
         val binding = ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,7 +20,7 @@ class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) ->
     }
 
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
-        holder.bind(getItem(position), position == itemCount - 1)
+        getItem(position)?.let { holder.bind(it, position == itemCount - 1) }
     }
 
     inner class StoryViewHolder(private val binding: ItemStoryBinding) :

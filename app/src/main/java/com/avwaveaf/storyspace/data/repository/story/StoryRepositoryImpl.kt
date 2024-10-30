@@ -2,12 +2,18 @@ package com.avwaveaf.storyspace.data.repository.story
 
 
 import android.content.Context
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.avwaveaf.storyspace.R
+import com.avwaveaf.storyspace.data.model.ListStoryItem
 import com.avwaveaf.storyspace.data.model.NewStoryResponse
 import com.avwaveaf.storyspace.data.model.RegisterResponse
 import com.avwaveaf.storyspace.data.model.StoryResponse
+import com.avwaveaf.storyspace.data.paging.StoryPagingSource
 import com.avwaveaf.storyspace.network.ApiService
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.HttpException
@@ -15,7 +21,8 @@ import javax.inject.Inject
 
 class StoryRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
-    private val context: Context
+    private val context: Context,
+    private val pagingSourceFactory: StoryPagingSource.Factory
 ) :
     StoryRepository {
     override suspend fun getStories(): Result<StoryResponse> {
@@ -80,7 +87,10 @@ class StoryRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun uploadImage(file: MultipartBody.Part, description: RequestBody): Result<NewStoryResponse> {
+    override suspend fun uploadImage(
+        file: MultipartBody.Part,
+        description: RequestBody
+    ): Result<NewStoryResponse> {
         return try {
             val response = apiService.uploadImage(file, description)
             if (!response.error) {
@@ -97,7 +107,7 @@ class StoryRepositoryImpl @Inject constructor(
             val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
             Result.failure(
                 Exception(
-                   errorBody.message
+                    errorBody.message
                 )
             )
         } catch (e: Exception) {
@@ -133,5 +143,15 @@ class StoryRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Result.failure(e) // Handle other exceptions
         }
+    }
+
+    override fun getPagedStories(): Flow<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5,          // Define page size
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { pagingSourceFactory.create() } // Use Assisted Factory
+        ).flow
     }
 }

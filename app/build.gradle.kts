@@ -45,6 +45,9 @@ android {
 
 dependencies {
 
+    //PAGING RUNTIME
+    implementation(libs.androidx.paging.runtime.ktx)
+
     // GMS
     implementation (libs.play.services.base)
 

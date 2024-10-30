@@ -60,6 +60,7 @@
     <string name="style_parsing_failed_error">Style parsing failed.</string>
     <string name="cannot_find_style_error">Cannot find style! Error</string>
     <string name="share_your_location">Share your Location?</string>
+    <string name="retry">Retry</string>
 
 
 </resources>

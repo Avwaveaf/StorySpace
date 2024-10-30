@@ -3,10 +3,13 @@ package com.avwaveaf.storyspace.view.home.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.avwaveaf.storyspace.data.model.ListStoryItem
+import androidx.paging.cachedIn
 import com.avwaveaf.storyspace.data.repository.story.StoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,23 +17,18 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val storyRepository: StoryRepository
 ) : ViewModel() {
+    private val _refreshTrigger = MutableStateFlow(0)
 
-    private val _stories = MutableLiveData<List<ListStoryItem>>()
-    val stories: LiveData<List<ListStoryItem>> get() = _stories
+    val pagedStories = _refreshTrigger.flatMapLatest {
+        storyRepository.getPagedStories()
+    }.cachedIn(viewModelScope).asLiveData()
 
     private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> get() = _errorMessage
+    val errorMessage: LiveData<String> = _errorMessage
 
-
-    fun fetchStories() {
+    fun requestRefresh() {
         viewModelScope.launch {
-            val result = storyRepository.getStories()
-            result.onSuccess {
-                _stories.value = it.listStory
-            }.onFailure {
-                _errorMessage.value = it.message
-            }
-
+            _refreshTrigger.emit(_refreshTrigger.value + 1)
         }
     }
 }

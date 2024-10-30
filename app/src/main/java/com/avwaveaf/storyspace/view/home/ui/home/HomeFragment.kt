@@ -10,14 +10,18 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.avwaveaf.storyspace.databinding.FragmentHomeBinding
 import com.avwaveaf.storyspace.view.home.ui.detail.DetailActivity
+import com.avwaveaf.storyspace.view.home.ui.home.adapter.LoadingStateAdapter
 import com.avwaveaf.storyspace.view.home.ui.home.adapter.StoryAdapter
 import com.avwaveaf.storyspace.view.home.ui.settings.SettingsFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -29,8 +33,10 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     override fun onCreateView(
@@ -43,17 +49,11 @@ class HomeFragment : Fragment() {
         applyThemFromPreference()
         showLoading(true)
 
-        fetchStories()
 
         // Initialize RecyclerView
         setupRecyclerView()
 
-        // Observe the stories
-        homeViewModel.stories.observe(viewLifecycleOwner) { stories ->
-            storyAdapter.submitList(stories)
-            showLoading(false)
-        }
-
+        observeData()
         // Observe error messages
         homeViewModel.errorMessage.observe(viewLifecycleOwner) { message ->
             message?.let {
@@ -63,14 +63,24 @@ class HomeFragment : Fragment() {
             showLoading(false)
         }
 
+
         return root
     }
 
-    private fun fetchStories() {
-        homeViewModel.fetchStories()
+
+    private fun observeData() {
+        // Observe paged stories
+            homeViewModel.pagedStories.observe(viewLifecycleOwner){ pagingData ->
+                lifecycleScope.launch {
+                    storyAdapter.submitData(pagingData)
+                }
+            }
     }
 
+
+
     private fun setupRecyclerView() {
+        // Initialize the StoryAdapter with LoadStateFooter
         storyAdapter = StoryAdapter { story, itemBinding ->
             // Create intent to start DetailActivity
             val intent = Intent(requireContext(), DetailActivity::class.java)
@@ -88,8 +98,29 @@ class HomeFragment : Fragment() {
             startActivity(intent, options.toBundle())
         }
 
-        binding.rvStories.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvStories.adapter = storyAdapter
+
+        storyAdapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Error) {
+                val error = (loadState.refresh as LoadState.Error).error
+                Snackbar.make(binding.root, "Error: ${error.message}", Snackbar.LENGTH_LONG).show()
+            }
+            showLoading(loadState.refresh is LoadState.Loading)
+        }
+
+        binding.rvStories.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = storyAdapter.withLoadStateHeaderAndFooter(
+                header = LoadingStateAdapter { storyAdapter.retry() },
+                footer = LoadingStateAdapter { storyAdapter.retry() }
+            )
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // This will trigger a refresh every time the fragment resumes
+        homeViewModel.requestRefresh()
     }
 
     private fun showLoading(flag: Boolean) {

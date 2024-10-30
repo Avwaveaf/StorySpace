@@ -91,7 +91,7 @@ class ComposeStoryFragment : Fragment() {
         viewModel.uploadSuccess.observe(viewLifecycleOwner) { success ->
             if (success == true) {
                 //update latest stories
-                homeViewModel.fetchStories()
+                homeViewModel.requestRefresh()
                 goBackToPreviousFragment()
             }
         }

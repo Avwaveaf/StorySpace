@@ -1,39 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_story_image"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:scaleType="centerCrop"
-        android:transitionName="sharedImage"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_story_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/iv_story_image"
-        tools:text="Story title"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.StorySpace.Headline"
-        android:transitionName="sharedTitle" />
+        <ImageView
+            android:id="@+id/iv_story_image"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            android:transitionName="sharedImage"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/tv_story_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.StorySpace.BodyText"
-        app:layout_constraintTop_toBottomOf="@id/tv_story_title"
-        app:layout_constraintStart_toStartOf="@id/tv_story_title"
-        app:layout_constraintEnd_toEndOf="@id/tv_story_title"
-        android:text="@string/hello_blank_fragment"
-        android:transitionName="sharedDescription" />
+        <TextView
+            android:id="@+id/tv_story_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.StorySpace.Headline"
+            android:transitionName="sharedTitle"
+            app:drawableStartCompat="@drawable/baseline_account_circle_24"
+            android:drawablePadding="16dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_story_image"
+            tools:text="Story title" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_story_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/hello_blank_fragment"
+            android:textAppearance="@style/TextAppearance.StorySpace.BodyText"
+            android:transitionName="sharedDescription"
+            app:layout_constraintEnd_toEndOf="@id/tv_story_title"
+            app:layout_constraintStart_toStartOf="@id/tv_story_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_story_title" />
+
+        <TextView
+            android:id="@+id/text_story_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:textAppearance="@style/TextAppearance.StorySpace.Caption"
+            app:layout_constraintEnd_toEndOf="@id/tv_story_description"
+            app:layout_constraintStart_toStartOf="@id/tv_story_description"
+            app:layout_constraintTop_toBottomOf="@id/tv_story_description"
+            tools:text="date" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/md_theme_surfaceContainer"
+            app:layout_constraintEnd_toEndOf="@id/text_story_date"
+            app:layout_constraintStart_toStartOf="@id/text_story_date"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/text_story_date"
+            />
+
+        <TextView
+            android:id="@+id/tv_location_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textAppearance="@style/TextAppearance.StorySpace.SubHeadline"
+            app:layout_constraintEnd_toEndOf="@id/divider"
+            app:layout_constraintStart_toStartOf="@id/divider"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            android:text="@string/where_this_story_from"
+            android:visibility="gone"
+            />
+
+
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_location_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -61,6 +61,7 @@
     <string name="cannot_find_style_error">Cannot find style! Error</string>
     <string name="share_your_location">Share your Location?</string>
     <string name="retry">Retry</string>
+    <string name="where_this_story_from">Where this story from?</string>
 
 
 </resources>

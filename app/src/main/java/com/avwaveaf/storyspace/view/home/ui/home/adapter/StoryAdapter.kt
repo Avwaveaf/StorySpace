@@ -12,7 +12,8 @@ import com.avwaveaf.storyspace.databinding.ItemStoryBinding
 import com.avwaveaf.storyspace.helper.formatDate
 import com.bumptech.glide.Glide
 
-class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) -> Unit) : PagingDataAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(StoryDiffCallback()) {
+class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) -> Unit) :
+    PagingDataAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(StoryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
         val binding = ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,7 +26,7 @@ class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) ->
 
     inner class StoryViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(story: ListStoryItem, isLast:Boolean) {
+        fun bind(story: ListStoryItem, isLast: Boolean) {
             binding.textStoryName.text = story.name
             binding.textStoryDescription.text = story.description
             binding.textStoryDate.text = formatDate(dateString = story.createdAt.toString())
@@ -34,16 +35,18 @@ class StoryAdapter(private val onItemClick: (ListStoryItem, ItemStoryBinding) ->
                 .load(story.photoUrl)
                 .into(binding.imageStory)
 
-            binding.root.setOnClickListener{
+            binding.root.setOnClickListener {
                 onItemClick(story, binding)
             }
 
             // Adjust bottom margin if this is the last item
             val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
             if (isLast) {
-                layoutParams.bottomMargin = itemView.context.resources.getDimensionPixelSize(R.dimen.last_listitem_margin)
+                layoutParams.bottomMargin =
+                    itemView.context.resources.getDimensionPixelSize(R.dimen.last_listitem_margin)
             } else {
-                layoutParams.bottomMargin = itemView.context.resources.getDimensionPixelSize(R.dimen.default_listitem_margin)
+                layoutParams.bottomMargin =
+                    itemView.context.resources.getDimensionPixelSize(R.dimen.default_listitem_margin)
             }
             binding.root.layoutParams = layoutParams
 

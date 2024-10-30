@@ -47,6 +47,7 @@ dependencies {
 
     //PAGING RUNTIME
     implementation(libs.androidx.paging.runtime.ktx)
+    testImplementation(libs.androidx.paging.common.ktx)
 
     // GMS
     implementation (libs.play.services.base)
@@ -101,6 +102,15 @@ dependencies {
 
     // Preference Deps
     implementation(libs.androidx.preference)
+
+    // Testing
+    androidTestImplementation(libs.androidx.core.testing) //InstantTaskExecutorRule
+    androidTestImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
+
+    testImplementation(libs.androidx.core.testing) // InstantTaskExecutorRule
+    testImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
 
 
     implementation(libs.androidx.core.ktx)

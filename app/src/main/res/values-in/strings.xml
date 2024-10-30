@@ -53,4 +53,6 @@
     <string name="style_parsing_failed_error">Gagal mengambil style peta</string>
     <string name="cannot_find_style_error">Gagal menemukan Style.</string>
     <string name="share_your_location">Bagikan Lokasi Anda?</string>
+    <string name="retry">Coba lagi</string>
+    <string name="where_this_story_from">Dimana Cerita ini dibuat?</string>
 </resources>

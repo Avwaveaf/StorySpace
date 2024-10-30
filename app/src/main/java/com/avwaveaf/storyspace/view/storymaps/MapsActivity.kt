@@ -3,14 +3,15 @@ package com.avwaveaf.storyspace.view.storymaps
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.avwaveaf.storyspace.R
@@ -62,12 +63,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setupObserver() {
-        mapsViewModel.stories.observe(this){
+        mapsViewModel.stories.observe(this) {
             locations = it
             addManyMarkerSpot()
         }
         mapsViewModel.errorMessage.observe(this) { errorMessage ->
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+        }
+        mapsViewModel.loading.observe(this) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
 
@@ -89,35 +93,45 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val success =
                 mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style))
             if (!success) {
-                Toast.makeText(this,
-                    getString(R.string.style_parsing_failed_error), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.style_parsing_failed_error), Toast.LENGTH_SHORT
+                ).show()
             }
-        }catch (exception: Resources.NotFoundException) {
-            Toast.makeText(this, getString(R.string.cannot_find_style_error), Toast.LENGTH_SHORT).show()
+        } catch (exception: Resources.NotFoundException) {
+            Toast.makeText(this, getString(R.string.cannot_find_style_error), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
     private fun addManyMarkerSpot() {
         if (locations.isNotEmpty()) {
-            locations.forEach{ data->
+            locations.forEach { data ->
                 val latLng = LatLng(data.lat!!, data.lon!!)
                 mMap.addMarker(
                     MarkerOptions()
                         .position(latLng)
                         .title(data.name)
                         .snippet(data.description)
-                        .icon(vectorToBitmap(R.drawable.baseline_menu_book_24, Color.parseColor("#3DDC84")))
+                        .icon(
+                            vectorToBitmap(
+                                R.drawable.baseline_menu_book_24,
+                                ContextCompat.getColor(this, R.color.md_theme_primary)
+                            )
+                        )
                 )
                 boundsBuilder.include(latLng)
             }
 
             val bounds: LatLngBounds = boundsBuilder.build()
-            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                bounds,
-                resources.displayMetrics.widthPixels,
-                resources.displayMetrics.heightPixels,
-                300
-            ))
+            mMap.animateCamera(
+                CameraUpdateFactory.newLatLngBounds(
+                    bounds,
+                    resources.displayMetrics.widthPixels,
+                    resources.displayMetrics.heightPixels,
+                    300
+                )
+            )
         }
     }
 

@@ -14,22 +14,29 @@ import javax.inject.Inject
 class MapsViewModel @Inject constructor(
     private val storyRepository: StoryRepository
 ) : ViewModel() {
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
+
     private val _stories = MutableLiveData<List<ListStoryItem>>()
     val stories: LiveData<List<ListStoryItem>> get() = _stories
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
-
     fun fetchStoriesWithLocation() {
         viewModelScope.launch {
-            val result = storyRepository.getStoriesWithLocation()
-            result.onSuccess {
-                _stories.value = it.listStory
-            }.onFailure {
-                _errorMessage.value = it.message
-            }
+            _loading.value = true // Show loading
+            try {
+                val res = storyRepository.getStoriesWithLocation()
 
+                res.onSuccess {
+                    _stories.value = it.listStory
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = e.message
+            } finally {
+                _loading.value = false // Hide loading
+            }
         }
     }
 }

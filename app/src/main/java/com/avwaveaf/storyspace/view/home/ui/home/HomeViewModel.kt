@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.avwaveaf.storyspace.data.repository.story.StoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val _refreshTrigger = MutableStateFlow(0)
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val pagedStories = _refreshTrigger.flatMapLatest {
         storyRepository.getPagedStories()
     }.cachedIn(viewModelScope).asLiveData()

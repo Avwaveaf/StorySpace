@@ -49,6 +49,37 @@ class StoryRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getStoriesWithLocation(): Result<StoryResponse> {
+        return try {
+            val response = apiService.getStoriesWithLocation()
+            if (!response.error!!) {
+                Result.success(response) // Return success
+            } else {
+                Result.failure(
+                    Exception(
+                        context.getString(
+                            R.string.error_fetching_story,
+                            response.message
+                        )
+                    )
+                )
+            }
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
+            Result.failure(
+                Exception(
+                    context.getString(
+                        R.string.error_fetching_story,
+                        errorBody.message
+                    )
+                )
+            )
+        } catch (e: Exception) {
+            Result.failure(e) // Handle other exceptions
+        }
+    }
+
     override suspend fun uploadImage(file: MultipartBody.Part, description: RequestBody): Result<NewStoryResponse> {
         return try {
             val response = apiService.uploadImage(file, description)
@@ -67,6 +98,36 @@ class StoryRepositoryImpl @Inject constructor(
             Result.failure(
                 Exception(
                    errorBody.message
+                )
+            )
+        } catch (e: Exception) {
+            Result.failure(e) // Handle other exceptions
+        }
+    }
+
+    override suspend fun uploadDataWithLocation(
+        file: MultipartBody.Part,
+        description: RequestBody,
+        lat: RequestBody,
+        lon: RequestBody
+    ): Result<NewStoryResponse> {
+        return try {
+            val response = apiService.uploadDataWithLocation(description, file, lat, lon)
+            if (!response.error) {
+                Result.success(response) // Return success
+            } else {
+                Result.failure(
+                    Exception(
+                        context.getString(R.string.error_uploading_this_story)
+                    )
+                )
+            }
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
+            Result.failure(
+                Exception(
+                    errorBody.message
                 )
             )
         } catch (e: Exception) {

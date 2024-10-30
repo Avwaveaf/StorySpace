@@ -5,6 +5,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs")
     id("kotlin-parcelize")
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -69,6 +70,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
     kapt(libs.hilt.android.compiler)
     kapt (libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.common)

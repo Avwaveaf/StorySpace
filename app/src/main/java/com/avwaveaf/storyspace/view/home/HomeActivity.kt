@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.avwaveaf.storyspace.R
 import com.avwaveaf.storyspace.databinding.ActivityHomeBinding
 import com.avwaveaf.storyspace.utils.SessionManager
+import com.avwaveaf.storyspace.view.storymaps.MapsActivity
 import com.avwaveaf.storyspace.view.welcome.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,11 +65,18 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
 
+        // logout custom menu icon
         val menuItem = menu?.findItem(R.id.action_logout)
         menuItem?.actionView = layoutInflater.inflate(R.layout.menu_item_logout, null)
-
         menuItem?.actionView?.setOnClickListener {
             logout()
+        }
+
+        // maps custom menu icon
+        val menuMaps = menu?.findItem(R.id.action_maps)
+        menuMaps?.actionView = layoutInflater.inflate(R.layout.menu_item_maps, null)
+        menuMaps?.actionView?.setOnClickListener {
+            startActivity(Intent(this@HomeActivity, MapsActivity::class.java))
         }
 
         return true

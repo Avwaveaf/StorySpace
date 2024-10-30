@@ -42,4 +42,22 @@ class ComposeStoryViewModel @Inject constructor(
             _isUploading.value = false
         }
     }
+
+    fun uploadDataWithLocation(
+        file: MultipartBody.Part,
+        description: RequestBody, lat: RequestBody, lon: RequestBody,
+    ) {
+        _isUploading.value = true
+        viewModelScope.launch {
+            val result = storyRepository.uploadDataWithLocation(file, description, lat, lon)
+            result.onSuccess {
+                _errorMessage.value = null
+                _uploadSuccess.value = true
+            }.onFailure {
+                _errorMessage.value = it.message
+                _uploadSuccess.value = false
+            }
+            _isUploading.value = false
+        }
+    }
 }

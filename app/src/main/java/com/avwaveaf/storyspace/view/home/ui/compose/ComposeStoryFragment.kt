@@ -3,6 +3,7 @@ package com.avwaveaf.storyspace.view.home.ui.compose
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +24,8 @@ import com.avwaveaf.storyspace.helper.reduceFileImage
 import com.avwaveaf.storyspace.helper.uriToFile
 import com.avwaveaf.storyspace.view.home.ui.compose.CameraActivity.Companion.CAMERAX_RESULT
 import com.avwaveaf.storyspace.view.home.ui.home.HomeViewModel
+import com.google.android.gms.location.LocationServices
+import com.google.android.material.materialswitch.MaterialSwitch
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -38,6 +41,10 @@ class ComposeStoryFragment : Fragment() {
     private var currentUri: Uri? = null
     private val viewModel: ComposeStoryViewModel by viewModels()
     private val homeViewModel: HomeViewModel by viewModels()
+
+    private lateinit var locationSwitch: MaterialSwitch
+    private var latitude: Double? = null
+    private var longitude: Double? = null
 
     private fun allPermissionsGranted() =
         ContextCompat.checkSelfPermission(
@@ -110,6 +117,17 @@ class ComposeStoryFragment : Fragment() {
         if (!allPermissionsGranted()) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
+        // Initialize the Switch and set a listener
+        locationSwitch = binding.switchIncludeLocation
+        locationSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                getMyLocation()
+            } else {
+                latitude = null
+                longitude = null // Clear location if switch is off
+            }
+        }
+
         observeViewModel()
         setupListeners()
         updateAddStoryButtonState()
@@ -128,6 +146,28 @@ class ComposeStoryFragment : Fragment() {
         }
     }
 
+    private fun getMyLocation() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    location?.let {
+                        latitude = it.latitude
+                        longitude = it.longitude
+
+                    } ?: run {
+                        Toast.makeText(requireContext(), "Unable to get location", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
     private fun uploadImage() {
         currentUri?.let { uri ->
             val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
@@ -138,7 +178,17 @@ class ComposeStoryFragment : Fragment() {
             val multipartBody = MultipartBody.Part.createFormData(
                 "photo", imageFile.name, requestImageFile
             )
-            viewModel.uploadImage(multipartBody, requestBody)
+            // Check if location is enabled and lat/lon are available
+            if (locationSwitch.isChecked && latitude != null && longitude != null) {
+                // Convert lat/lon to RequestBody
+                val latBody = latitude.toString().toRequestBody("text/plain".toMediaType())
+                val lonBody = longitude.toString().toRequestBody("text/plain".toMediaType())
+                // Call uploadDataWithLocation
+                viewModel.uploadDataWithLocation(multipartBody, requestBody, latBody, lonBody)
+            } else {
+                // Call uploadImage without location
+                viewModel.uploadImage(multipartBody, requestBody)
+            }
         } ?: showToast(getString(R.string.image_file_cannot_be_null_warning))
     }
 

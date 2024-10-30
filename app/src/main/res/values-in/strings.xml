@@ -30,7 +30,7 @@
     <string name="error_fetching_story">Gagal memproses cerita: %1$s</string>
     <string name="add_new_story">Tambah Cerita baru</string>
 
-    <string name="compose_a_story">Tulis Cerita Baru</string>
+    <string name="compose_a_story">Cerita Baru</string>
     <string name="capture_title">Foto</string>
     <string name="capture_story_description">Ambil Gambar</string>
     <string name="browse_gallery_description">Galeri</string>
@@ -49,4 +49,8 @@
     <string name="no_story_at_the_moment">Tidak ada cerita untuk sekarang.</string>
     <string name="latest_story_for_you">Cerita Terbaru untuk mu</string>
     <string name="please_wait_while_we_fetching_stories_for_you">Mohon tunggu, sedang mengambil cerita terbaru…</string>
+    <string name="maps">Peta</string>
+    <string name="style_parsing_failed_error">Gagal mengambil style peta</string>
+    <string name="cannot_find_style_error">Gagal menemukan Style.</string>
+    <string name="share_your_location">Bagikan Lokasi Anda?</string>
 </resources>

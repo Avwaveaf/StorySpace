@@ -35,7 +35,7 @@
     <string name="error_fetching_story">Error Fetching Story: %1$s</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="add_new_story">Add new story</string>
-    <string name="compose_a_story">Compose A Story</string>
+    <string name="compose_a_story">Compose</string>
     <string name="capture_title">Capture</string>
     <string name="capture_story_description">Capture story</string>
     <string name="browse_gallery_description">browse gallery</string>
@@ -55,6 +55,11 @@
     <string name="no_story_at_the_moment">No Story at the moment</string>
     <string name="latest_story_for_you">Latest Story for you</string>
     <string name="please_wait_while_we_fetching_stories_for_you">Please wait while we fetching stories for you..</string>
+    <string name="title_activity_maps" translatable="false">MapsActivity</string>
+    <string name="maps">Maps</string>
+    <string name="style_parsing_failed_error">Style parsing failed.</string>
+    <string name="cannot_find_style_error">Cannot find style! Error</string>
+    <string name="share_your_location">Share your Location?</string>
 
 
 </resources>

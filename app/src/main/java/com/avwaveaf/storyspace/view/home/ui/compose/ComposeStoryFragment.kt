@@ -152,7 +152,8 @@ class ComposeStoryFragment : Fragment() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            val fusedLocationClient =
+                LocationServices.getFusedLocationProviderClient(requireContext())
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
                     location?.let {
@@ -160,7 +161,11 @@ class ComposeStoryFragment : Fragment() {
                         longitude = it.longitude
 
                     } ?: run {
-                        Toast.makeText(requireContext(), "Unable to get location", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Unable to get location",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
         } else {
@@ -179,12 +184,25 @@ class ComposeStoryFragment : Fragment() {
                 "photo", imageFile.name, requestImageFile
             )
             // Check if location is enabled and lat/lon are available
-            if (locationSwitch.isChecked && latitude != null && longitude != null) {
+            if (locationSwitch.isChecked) {
                 // Convert lat/lon to RequestBody
                 val latBody = latitude.toString().toRequestBody("text/plain".toMediaType())
                 val lonBody = longitude.toString().toRequestBody("text/plain".toMediaType())
-                // Call uploadDataWithLocation
-                viewModel.uploadDataWithLocation(multipartBody, requestBody, latBody, lonBody)
+
+                if (latitude != null && longitude != null) {
+                    // Call uploadDataWithLocation
+                    viewModel.uploadDataWithLocation(multipartBody, requestBody, latBody, lonBody)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(
+                            R.string.location_are_not_found_lat_lon,
+                            latitude.toString(),
+                            longitude.toString()
+                        ),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             } else {
                 // Call uploadImage without location
                 viewModel.uploadImage(multipartBody, requestBody)

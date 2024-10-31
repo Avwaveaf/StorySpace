@@ -4,7 +4,6 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -129,7 +128,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     bounds,
                     resources.displayMetrics.widthPixels,
                     resources.displayMetrics.heightPixels,
-                    300
+                   300
                 )
             )
         }
@@ -138,7 +137,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun vectorToBitmap(@DrawableRes id: Int, @ColorInt color: Int): BitmapDescriptor {
         val vectorDrawable = ResourcesCompat.getDrawable(resources, id, null)
         if (vectorDrawable == null) {
-            Log.e("BitmapHelper", "Resource not found")
             return BitmapDescriptorFactory.defaultMarker()
         }
         val bitmap = Bitmap.createBitmap(

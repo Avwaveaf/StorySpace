@@ -55,4 +55,5 @@
     <string name="share_your_location">Bagikan Lokasi Anda?</string>
     <string name="retry">Coba lagi</string>
     <string name="where_this_story_from">Dimana Cerita ini dibuat?</string>
+    <string name="location_are_not_found_lat_lon">lokasi tidak ditemukan lat: %1$s lon: %2$s</string>
 </resources>

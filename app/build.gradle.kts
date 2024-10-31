@@ -37,6 +37,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += listOf("-Xopt-in=kotlin.RequiresOptIn")
     }
     buildFeatures {
         viewBinding = true
@@ -44,6 +45,14 @@ android {
 }
 
 dependencies {
+
+    //ROOM
+    implementation(libs.androidx.room.runtime)
+    //noinspection KaptUsageInsteadOfKsp
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    // remote mediator ROOM X Paging3
+    implementation(libs.androidx.room.paging)
 
     //PAGING RUNTIME
     implementation(libs.androidx.paging.runtime.ktx)

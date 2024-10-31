@@ -2,15 +2,18 @@ package com.avwaveaf.storyspace.data.repository.story
 
 
 import android.content.Context
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.avwaveaf.storyspace.R
+import com.avwaveaf.storyspace.data.db.StoryDatabase
 import com.avwaveaf.storyspace.data.model.ListStoryItem
 import com.avwaveaf.storyspace.data.model.NewStoryResponse
 import com.avwaveaf.storyspace.data.model.RegisterResponse
 import com.avwaveaf.storyspace.data.model.StoryResponse
 import com.avwaveaf.storyspace.data.paging.StoryPagingSource
+import com.avwaveaf.storyspace.data.paging.StoryRemoteMediator
 import com.avwaveaf.storyspace.network.ApiService
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +25,9 @@ import javax.inject.Inject
 class StoryRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val context: Context,
-    private val pagingSourceFactory: StoryPagingSource.Factory
+    private val pagingSourceFactory: StoryPagingSource.Factory,
+    private val remoteMediator: StoryRemoteMediator,
+    private val storyDatabase: StoryDatabase
 ) :
     StoryRepository {
     override suspend fun getStories(): Result<StoryResponse> {
@@ -145,13 +150,18 @@ class StoryRepositoryImpl @Inject constructor(
         }
     }
 
+
+    @OptIn(ExperimentalPagingApi::class)
     override fun getPagedStories(): Flow<PagingData<ListStoryItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 5,          // Define page size
+                pageSize = 5,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { pagingSourceFactory.create() } // Use Assisted Factory
+            remoteMediator = remoteMediator,
+            pagingSourceFactory = {
+                storyDatabase.storyDao().getAllStory()
+            }
         ).flow
     }
 }

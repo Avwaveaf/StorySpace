@@ -130,8 +130,6 @@ class ComposeStoryFragment : Fragment() {
     private fun setupListeners() {
         binding.btnGallery.setOnClickListener { startGallery() }
         binding.btnCamera.setOnClickListener { startCameraX() }
-
-        binding.etStoryTitle.addTextChangedListener { updateAddStoryButtonState() }
         binding.etStoryDescription.addTextChangedListener { updateAddStoryButtonState() }
         binding.switchIncludeLocation.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -255,7 +253,6 @@ class ComposeStoryFragment : Fragment() {
     }
 
     private fun updateAddStoryButtonState() {
-        val isTitleEmpty = binding.etStoryTitle.text.isNullOrBlank()
         val isDescriptionEmpty = binding.etStoryDescription.text.isNullOrBlank()
         val isImageSelected = currentUri != null
         val isLocationValid = if (binding.switchIncludeLocation.isChecked) {
@@ -266,8 +263,7 @@ class ComposeStoryFragment : Fragment() {
             true
         }
 
-        binding.btnAddStory.isEnabled = !isTitleEmpty &&
-                !isDescriptionEmpty &&
+        binding.btnAddStory.isEnabled = !isDescriptionEmpty &&
                 isImageSelected &&
                 isLocationValid
     }

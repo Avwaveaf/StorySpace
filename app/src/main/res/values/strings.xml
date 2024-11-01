@@ -63,6 +63,7 @@
     <string name="retry">Retry</string>
     <string name="where_this_story_from">Where this story from?</string>
     <string name="location_are_not_found_lat_lon">location are not found lat: %1$s lon: %2$s</string>
+    <string name="failed_to_get_location">Failed to get location</string>
 
 
 </resources>

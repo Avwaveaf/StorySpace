@@ -101,6 +101,8 @@ class ComposeStoryFragment : Fragment() {
         currentUri?.let {
             binding.ivImagePreview.scaleType = ImageView.ScaleType.CENTER_CROP
             binding.ivImagePreview.setImageURI(it)
+            // Update button state after image is set
+            updateAddStoryButtonState()
         }
     }
 
@@ -117,16 +119,8 @@ class ComposeStoryFragment : Fragment() {
         if (!allPermissionsGranted()) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
-        // Initialize the Switch and set a listener
+
         locationSwitch = binding.switchIncludeLocation
-        locationSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                getMyLocation()
-            } else {
-                latitude = null
-                longitude = null // Clear location if switch is off
-            }
-        }
 
         observeViewModel()
         setupListeners()
@@ -139,6 +133,16 @@ class ComposeStoryFragment : Fragment() {
 
         binding.etStoryTitle.addTextChangedListener { updateAddStoryButtonState() }
         binding.etStoryDescription.addTextChangedListener { updateAddStoryButtonState() }
+        binding.switchIncludeLocation.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                getMyLocation()
+            } else {
+                latitude = null
+                longitude = null
+            }
+            // Add this to update button state when switch changes
+            updateAddStoryButtonState()
+        }
 
         binding.btnAddStory.setOnClickListener {
             showLoading(true)
@@ -159,14 +163,27 @@ class ComposeStoryFragment : Fragment() {
                     location?.let {
                         latitude = it.latitude
                         longitude = it.longitude
-
+                        // Update button state after getting location
+                        updateAddStoryButtonState()
                     } ?: run {
                         Toast.makeText(
                             requireContext(),
                             "Unable to get location",
                             Toast.LENGTH_SHORT
                         ).show()
+                        // If location is null, update button state
+                        updateAddStoryButtonState()
                     }
+                }
+                .addOnFailureListener {
+                    // Handle failure case
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.failed_to_get_location),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    // Update button state on failure
+                    updateAddStoryButtonState()
                 }
         } else {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -241,8 +258,18 @@ class ComposeStoryFragment : Fragment() {
         val isTitleEmpty = binding.etStoryTitle.text.isNullOrBlank()
         val isDescriptionEmpty = binding.etStoryDescription.text.isNullOrBlank()
         val isImageSelected = currentUri != null
+        val isLocationValid = if (binding.switchIncludeLocation.isChecked) {
+            // If location switch is on, we need valid coordinates
+            latitude != null && longitude != null
+        } else {
+            // If location switch is off, we don't care about coordinates
+            true
+        }
 
-        binding.btnAddStory.isEnabled = !isTitleEmpty && !isDescriptionEmpty && isImageSelected
+        binding.btnAddStory.isEnabled = !isTitleEmpty &&
+                !isDescriptionEmpty &&
+                isImageSelected &&
+                isLocationValid
     }
 
 

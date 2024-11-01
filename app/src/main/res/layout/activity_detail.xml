@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:textAppearance="@style/TextAppearance.StorySpace.Headline"
             android:transitionName="sharedTitle"
             app:drawableStartCompat="@drawable/baseline_account_circle_24"
